@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+. /usr/local/rvm/scripts/rvm
+RAILS_SECRET_PRD=$(/usr/local/rvm/rubies/$(/usr/local/rvm/bin/rvm list default string)/bin/rake -f /home/rails/default/Rakefile secret)
+sed -ie "s/{rails_secret_prd}/$RAILS_SECRET_PRD/" /etc/default/unicorn
+
+update-rc.d unicorn enable
+
+# this service is only needed on the first boot so we remove it here.
+rm -f /usr/local/sbin/oc-init-rails

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+METADATA=$(oc-metadata --cached)
+
+metadata() {
+    key=$1
+    echo "$METADATA" | grep "^$key=" | cut -d= -f2 | sed "s/^['\"]//;s/['\"]$//"
+}
+
+PUBLIC_IP=$(metadata PUBLIC_IP_ADDRESS)
+
+cat <<EOF
+Hi Cloud Rider,
+Welcome to the Ruby on Rails InstantApp, the following are installed
+and configured:
+- Rails
+- Ruby
+- Rvm
+- Nginx
+- Unicorn
+- Node.js
+The default rails app is in /home/rails/default and online at http://${PUBLIC_IP}/
+Useful links:
+- https://github.com/scaleway/image-app-rails
+Enjoy!
+EOF
