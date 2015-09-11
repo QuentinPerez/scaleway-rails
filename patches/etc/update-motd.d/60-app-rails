@@ -21,6 +21,6 @@ and configured:
 - Node.js
 The default rails app is in /home/rails/default and online at http://${PUBLIC_IP}/
 Useful links:
-- https://github.com/scaleway/image-app-rails
+- https://github.com/scaleway-community/scaleway-rails
 Enjoy!
 EOF
