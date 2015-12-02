@@ -1,5 +1,5 @@
 ## -*- docker-image-name: "scaleway/rails:latest" -*-
-FROM scaleway/ubuntu:trusty
+FROM scaleway/ruby:latest
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 # Prepare rootfs for image-builder
@@ -8,14 +8,6 @@ RUN /usr/local/sbin/builder-enter
 RUN apt-get -q update \
   && apt-get --force-yes -y -qq upgrade \
   && apt-get install -y -qq nginx nodejs
-
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
-  && curl -sSL https://get.rvm.io | bash -s stable --rails
-
-# Install rvm
-RUN echo 'source /etc/profile.d/rvm.sh' >> /etc/profile \
-  && /bin/bash -l -c "rvm requirements;" \
-  && /bin/bash -l -c "gem install bundler rails unicorn"
 
 # Create rails user
 RUN adduser --disabled-password --shell /bin/bash --gecos 'Ruby on Rails user' rails \
